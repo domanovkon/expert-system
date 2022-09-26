@@ -81,25 +81,29 @@ public class GraphSearch {
         List<Edge> edges = Arrays.asList(edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8, edge10, edge11, edge12);
 
         List<Node> defNodes = Arrays.asList(node8, node31, node2, node5, node6, node18, node32);
-//        List<Node> defNodes = Arrays.asList(node19, node20, node6);
 
 
         GraphSearch graphSearch = new GraphSearch(edges, node14, defNodes);
 
+        System.out.println("Исходные данные");
+        for (Edge edge : edges) {
+            System.out.println("\nНомер правила: " + edge.getValue() + " Выходная вершина: " + edge.getFinalNode().toString());
+            System.out.println("Входные вершины: ");
+            edge.getInputNodes().stream().forEach(x-> System.out.print(x.toString() + " "));
+        }
         graphSearch.search();
     }
-
 
     public void search() {
         int j;
         while (this.flagY == 1 && this.flagN == 1) {
             j = patternSearch();
             if (this.flagY == 0) {
-                System.out.println("Решение найдено");
+                System.out.println("\n\nРешение найдено");
                 System.out.println("Список закрытых правил");
-                this.closedEdges.forEach(x-> System.out.print(x.getValue() + " "));
+                this.closedEdges.forEach(x -> System.out.print(x.getValue() + " "));
                 System.out.println("\nСписок закрытых вершин");
-                this.closedNodes.forEach(x-> System.out.print(x.getValue() + " "));
+                this.closedNodes.forEach(x -> System.out.print(x.getValue() + " "));
             } else if (j == 0 && this.openNodes.size() == 1 && this.openNodes.contains(this.targetNode)) {
                 System.out.println("Решения нет");
                 this.flagN = 0;
@@ -155,24 +159,17 @@ public class GraphSearch {
 
     public void markup() {
         while (this.flagY == 1) {
-            this.openEdges.peek().getFinalNode().setFlag(1);
-            Edge edge = this.openEdges.pop();
-            if (edge.getFinalNode().equals(this.targetNode)) {
-                this.flagY = 0;
+            if (this.closedNodes.containsAll(this.openEdges.peek().getInputNodes())) {
+                this.openEdges.peek().getFinalNode().setFlag(1);
+                Edge edge = this.openEdges.pop();
+                if (edge.getFinalNode().equals(this.targetNode)) {
+                    this.flagY = 0;
+                }
+                this.closedEdges.add(edge);
+                this.closedNodes.add(this.openNodes.pop());
+            } else {
+                break;
             }
-            this.closedEdges.add(edge);
-            this.closedNodes.add(this.openNodes.pop());
-//            this.openNodes.remove(edge.getFinalNode());
-//            int k = 0;
-//            for (Node node : edge.getInputNodes()) {
-//                if (node.getFlag() == 1) {
-//                    k++;
-//                }
-//            }
-//            if (k != edge.getInputNodes().size()) {
-//                break;
-//            }
-
         }
     }
 }

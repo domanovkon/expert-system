@@ -59,6 +59,7 @@ public class GraphSearch {
         Node node31 = new Node(31);
         Node node32 = new Node(32);
         Node node33 = new Node(33);
+        Node node228 = new Node(228);
 
         List<Node> allNodes = Arrays.asList(node1, node2, node3, node4, node5, node6, node7, node8, node9,
                 node10, node11, node12, node13, node14, node15, node16, node17, node18, node19, node20,
@@ -72,15 +73,15 @@ public class GraphSearch {
         Edge edge6 = new Edge(106, node9, Arrays.asList(node4, node10, node11));
         Edge edge7 = new Edge(105, node14, Arrays.asList(node7, node9));
         Edge edge8 = new Edge(111, node9, Arrays.asList(node18, node32));
-//        Edge edge8 = new Edge(110, node14, Arrays.asList(node9, node18));
-        Edge edge10 = new Edge(112, node18, Arrays.asList(node19, node20));
+        Edge edge9 = new Edge(110, node14, Arrays.asList(node9, node228));
+        Edge edge10 = new Edge(112, node228, Arrays.asList(node19, node20));
         Edge edge11 = new Edge(109, node15, Arrays.asList(node16, node17));
         Edge edge12 = new Edge(108, node33, Arrays.asList(node15, node18));
 
 
-        List<Edge> edges = Arrays.asList(edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8, edge10, edge11, edge12);
+        List<Edge> edges = Arrays.asList(edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8, edge9, edge10, edge11, edge12);
 
-        List<Node> defNodes = Arrays.asList(node8, node31, node2, node5, node6, node18, node32);
+        List<Node> defNodes = Arrays.asList(node18, node32, node19, node20);
 
 
         GraphSearch graphSearch = new GraphSearch(edges, node14, defNodes);
@@ -89,7 +90,7 @@ public class GraphSearch {
         for (Edge edge : edges) {
             System.out.println("\nНомер правила: " + edge.getValue() + " Выходная вершина: " + edge.getFinalNode().toString());
             System.out.println("Входные вершины: ");
-            edge.getInputNodes().stream().forEach(x-> System.out.print(x.toString() + " "));
+            edge.getInputNodes().forEach(x-> System.out.print(x.toString() + " "));
         }
         graphSearch.search();
     }
@@ -105,7 +106,9 @@ public class GraphSearch {
                 System.out.println("\nСписок закрытых вершин");
                 this.closedNodes.forEach(x -> System.out.print(x.getValue() + " "));
             } else if (j == 0 && this.openNodes.size() == 1 && this.openNodes.contains(this.targetNode)) {
-                System.out.println("Решения нет");
+                System.out.println("\n\nРешения нет");
+                System.out.println("\nСписок закрытых вершин");
+                this.closedNodes.forEach(x -> System.out.print(x.getValue() + " "));
                 this.flagN = 0;
             } else if (j == 0 && this.openNodes.size() != 0) {
                 returnMethod();

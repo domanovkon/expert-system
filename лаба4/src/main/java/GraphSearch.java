@@ -72,7 +72,7 @@ public class GraphSearch {
         System.out.println("Исходные данные");
         for (Edge edge : edges) {
             System.out.println("\nНомер правила: " + edge.getValue() + " Выходная вершина: " + edge.getFinalNode().toString());
-            System.out.println("Входные вершины: ");
+            System.out.print("Входные вершины: ");
             edge.getInputNodes().forEach(x-> System.out.print(x.toString() + " "));
         }
         graphSearch.search();
@@ -87,6 +87,8 @@ public class GraphSearch {
             openNodes.removeFirst();
             if (this.flagY == 0) {
                 System.out.println("\n\nРешение найдено");
+                System.out.println("\nСписок открытых правил");
+                this.openEdges.forEach(x -> System.out.print(x.getValue() + " "));
                 System.out.println("\nСписок закрытых правил");
                 this.closedEdges.forEach(x -> System.out.print(x.getValue() + " "));
                 System.out.println("\nСписок закрытых вершин");
@@ -113,7 +115,6 @@ public class GraphSearch {
 
                 int l = 0;
                 List<Node> nodes = edge.getInputNodes();
-//                Collections.reverse(nodes);
                 for (Node node : nodes) {
                     if (this.closedNodes.contains(node)) {
                         node.setFlag(1);
@@ -127,6 +128,7 @@ public class GraphSearch {
                     openEdges.add(edge);
                 } else if (l == edge.getInputNodes().size() && edge.getFinalNode().equals(this.targetNode)) {
                     this.flagY = 0;
+                    break;
                 } else if (l == edge.getInputNodes().size()) {
                     edge.setMetka(2);
                     edge.getFinalNode().setFlag(1);
@@ -141,5 +143,21 @@ public class GraphSearch {
     }
 
     public void markup() {
+        int cnt;
+        do {
+            cnt = 0;
+            for (Edge edge : this.openEdges) {
+                if (edge.getMetka() == 1 && closedNodes.containsAll(edge.getInputNodes())) {
+                    cnt++;
+                    edge.setMetka(2);
+                    edge.getFinalNode().setFlag(1);
+                    this.closedEdges.add(edge);
+                    this.closedNodes.add(edge.getFinalNode());
+                    if (edge.getFinalNode().equals(this.targetNode)) {
+                        this.flagY = 0;
+                    }
+                }
+            }
+        } while (cnt != 0);
     }
 }

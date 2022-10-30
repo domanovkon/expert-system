@@ -69,7 +69,7 @@ public class Solution {
 
     public boolean unification(Atom firstAtom, Atom secondAtom) {
 
-        if ((!firstAtom.getName().equals(secondAtom.getName())) || (firstAtom.getArgs().size() != secondAtom.getArgs().size())) {
+        if ((!firstAtom.getName().equals(secondAtom.getName())) || (firstAtom.getArgs().size() != secondAtom.getArgs().size()) || (!isDifferentSings(firstAtom, secondAtom))) {
             return false;
         }
 
@@ -120,6 +120,9 @@ public class Solution {
         return true;
     }
 
+    public boolean isDifferentSings(Atom atom1, Atom atom2) {
+        return atom1.isNegative() != atom2.isNegative();
+    }
 
     public void addReplacement(String type, ParamType param1, ParamType param2) {
         List<ParamType> params = new ArrayList<>();

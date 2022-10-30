@@ -65,7 +65,8 @@ public class GraphSearch {
 
         List<Edge> edges = Arrays.asList(edge1, edge2, edge3, edge4, edge5, edge6, edge7, edge8);
 
-        List<Node> defNodes = Arrays.asList(node11, node14, node16, node9, node17, node15, node12);
+        List<Node> defNodes = Arrays.asList(node11, node14, node16, node9, node17, node15,
+                );
 
         GraphSearch graphSearch = new GraphSearch(edges, node1, defNodes);
 

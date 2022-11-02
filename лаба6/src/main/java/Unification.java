@@ -6,11 +6,12 @@ public class Unification {
 
     public boolean unification(Atom firstAtom, Atom secondAtom) {
 
-        if ((!firstAtom.getName().equals(secondAtom.getName())) || (firstAtom.getArgs().size() != secondAtom.getArgs().size()) || (!isDifferentSings(firstAtom, secondAtom))) {
+        if ((!firstAtom.getName().equals(secondAtom.getName())) || (firstAtom.getArgs().size() != secondAtom.getArgs().size())) {
             return false;
         }
 
         for (int i = 0; i < firstAtom.getArgs().size(); i++) {
+            System.out.println(i);
             ParamType firstAtomParam = firstAtom.getArgs().get(i);
             ParamType secondAtomParam = secondAtom.getArgs().get(i);
 
@@ -32,11 +33,14 @@ public class Unification {
                 continue;
             }
             if (firstAtomParam.isConstant() && secondAtomParam.isVariable()) {
+                if (((Variable) secondAtomParam).getConstant() != null && !((Variable) secondAtomParam).getConstant().getValue().equals(((Constant)firstAtomParam).getValue())) {
+                    return false;
+                }
                 this.addReplacement("constantToVariable", firstAtomParam, secondAtomParam);
-                continue;
-            }
-
-            if (firstAtomParam.isVariable() && secondAtomParam.isConstant()) {
+            } else {
+                if (((Variable) firstAtomParam).getConstant() != null && !((Variable) firstAtomParam).getConstant().getValue().equals(((Constant) secondAtomParam).getValue())) {
+                    return false;
+                }
                 this.addReplacement("variableToConstant", firstAtomParam, secondAtomParam);
             }
         }
@@ -45,6 +49,11 @@ public class Unification {
             switch (rp.getReplacementType()) {
                 case "variableToVariable":
                     this.addVariableLink((Variable) rp.getParam().get(0), (Variable) rp.getParam().get(1));
+                    if (((Variable) rp.getParam().get(0)).getConstant() != null && ((Variable) rp.getParam().get(1)).getConstant() == null) {
+                        this.addConstantLink(((Variable) rp.getParam().get(1)), ((Variable) rp.getParam().get(0)).getConstant());
+                    } else if (((Variable) rp.getParam().get(1)).getConstant() != null && ((Variable) rp.getParam().get(0)).getConstant() == null) {
+                        this.addConstantLink(((Variable) rp.getParam().get(0)), ((Variable) rp.getParam().get(1)).getConstant());
+                    }
                     break;
                 case "constantToVariable":
                     this.addConstantLink((Variable) rp.getParam().get(1), (Constant) rp.getParam().get(0));
@@ -86,7 +95,7 @@ public class Unification {
         params.add(param1);
         params.add(param2);
         ReplacedParams rp = new ReplacedParams(type, params);
-        replacedParams.add(rp);
+        this.replacedParams.add(rp);
     }
 
     public void addConstantLink(Variable variable, Constant constant) {

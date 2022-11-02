@@ -62,12 +62,20 @@ public class Main {
 
 
         Variable x4 = new Variable();
-        x3.setName("x4");
+        x4.setName("x4");
         Atom targetAtom1 = new Atom("M", true, Arrays.asList(x4));
         Atom targetAtom2 = new Atom("S", false, Arrays.asList(x4));
-        Disjunct target = new Disjunct(Arrays.asList());
+        Disjunct target = new Disjunct(Arrays.asList(targetAtom1, targetAtom2));
 
         Resolution resolution = new Resolution();
         resolution.resolution(disjuncts, target);
+
+        System.out.println("переменные");
+        System.out.println(x1);
+        System.out.println(x2);
+        System.out.println(x3);
+        System.out.println(x4);
+        System.out.println(y1);
+        System.out.println(y2);
     }
 }

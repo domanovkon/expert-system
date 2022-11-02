@@ -6,7 +6,7 @@ public class ContraryPairs {
 
     List<Atom> contraryAtoms = new ArrayList<>();
 
-    HashMap<Integer, Integer> usedAtoms = new HashMap<>();
+    List<Integer[]> usedAtoms = new ArrayList<>();
 
     public List<Atom> getContraryAtoms() {
         return contraryAtoms;
@@ -16,11 +16,11 @@ public class ContraryPairs {
         this.contraryAtoms = contraryAtoms;
     }
 
-    public HashMap<Integer, Integer> getUsedAtoms() {
+    public List<Integer[]> getUsedAtoms() {
         return usedAtoms;
     }
 
-    public void setUsedAtoms(HashMap<Integer, Integer> usedAtoms) {
+    public void setUsedAtoms(List<Integer[]> usedAtoms) {
         this.usedAtoms = usedAtoms;
     }
 }

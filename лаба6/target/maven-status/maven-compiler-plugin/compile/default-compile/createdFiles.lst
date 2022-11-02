@@ -1,0 +1,10 @@
+Main.class
+ParamType.class
+Constant.class
+Resolution.class
+ReplacedParams.class
+Unification.class
+Variable.class
+ContraryPairs.class
+Disjunct.class
+Atom.class

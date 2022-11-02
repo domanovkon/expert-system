@@ -9,4 +9,11 @@ public class Constant extends ParamType {
     public String getValue() {
         return value;
     }
+
+    @Override
+    public String toString() {
+        return "Constant{" +
+                "value='" + value + '\'' +
+                '}';
+    }
 }

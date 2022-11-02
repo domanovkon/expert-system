@@ -100,11 +100,15 @@ public class Solution {
                 continue;
             }
             if (firstAtomParam.isConstant() && secondAtomParam.isVariable()) {
+                if (((Variable) secondAtomParam).getConstant() != null && !((Variable) secondAtomParam).getConstant().getValue().equals(((Constant) firstAtomParam).getValue())) {
+                    return false;
+                }
                 this.addReplacement("constantToVariable", firstAtomParam, secondAtomParam);
                 continue;
-            }
-
-            if (firstAtomParam.isVariable() && secondAtomParam.isConstant()) {
+            } else {
+                if (((Variable) firstAtomParam).getConstant() != null && !((Variable) firstAtomParam).getConstant().getValue().equals(((Constant) secondAtomParam).getValue())) {
+                    return false;
+                }
                 this.addReplacement("variableToConstant", firstAtomParam, secondAtomParam);
             }
         }

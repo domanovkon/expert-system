@@ -32,4 +32,13 @@ public class Variable extends ParamType {
     public void setLinks(List<Variable> links) {
         this.links = links;
     }
+
+    @Override
+    public String toString() {
+        return "Variable{" +
+                "name='" + name + '\'' +
+                ", constant=" + constant +
+                ", link size" + getLinks().size() +
+                '}';
+    }
 }

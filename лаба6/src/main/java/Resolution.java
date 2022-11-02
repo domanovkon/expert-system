@@ -4,7 +4,6 @@ public class Resolution {
 
     Unification unification = new Unification();
 
-
     private List<Disjunct> allDisjunkts = new ArrayList<>();
 
     public boolean resolution(List<Disjunct> disjuncts, Disjunct target) {
@@ -133,44 +132,44 @@ public class Resolution {
         return cp;
     }
 
-    public ContraryPairs findContraryPairs(List<Atom> atoms1, List<Atom> atoms2, List<Integer[]> usedPairs) {
-        ContraryPairs contraryPairs = new ContraryPairs();
-        List<Atom> contraryPair = new ArrayList<>();
-        int i = 0;
-        int j = 0;
-        boolean flag = false;
-        for (Atom a1 : atoms1) {
-            i++;
-            for (Atom a2 : atoms2) {
-                j++;
-                if (a1.getName().equals(a2.getName()) && a1.isNegative() != a2.isNegative()) {
-                    for (Integer[] arr : usedPairs) {
-                        if (arr[0] == i && arr[1] == j) {
-                            flag = true;
-                            break;
-                        }
-                    }
-                    if (flag) {
-                        continue;
-                    }
-                    contraryPair.add(a1);
-                    contraryPair.add(a2);
-                    contraryPairs.setContraryAtoms(contraryPair);
-                    break;
-                }
-            }
-        }
-        if (contraryPair.size() == 0) {
-            return null;
-        }
-        Integer[] integers = new Integer[100];
-        integers[0] = i;
-        integers[1] = j;
-        usedPairs.add(integers);
-        contraryPairs.setUsedAtoms(usedPairs);
-
-        return contraryPairs;
-    }
+//    public ContraryPairs findContraryPairs(List<Atom> atoms1, List<Atom> atoms2, List<Integer[]> usedPairs) {
+//        ContraryPairs contraryPairs = new ContraryPairs();
+//        List<Atom> contraryPair = new ArrayList<>();
+//        int i = 0;
+//        int j = 0;
+//        boolean flag = false;
+//        for (Atom a1 : atoms1) {
+//            i++;
+//            for (Atom a2 : atoms2) {
+//                j++;
+//                if (a1.getName().equals(a2.getName()) && a1.isNegative() != a2.isNegative()) {
+//                    for (Integer[] arr : usedPairs) {
+//                        if (arr[0] == i && arr[1] == j) {
+//                            flag = true;
+//                            break;
+//                        }
+//                    }
+//                    if (flag) {
+//                        continue;
+//                    }
+//                    contraryPair.add(a1);
+//                    contraryPair.add(a2);
+//                    contraryPairs.setContraryAtoms(contraryPair);
+//                    break;
+//                }
+//            }
+//        }
+//        if (contraryPair.size() == 0) {
+//            return null;
+//        }
+//        Integer[] integers = new Integer[100];
+//        integers[0] = i;
+//        integers[1] = j;
+//        usedPairs.add(integers);
+//        contraryPairs.setUsedAtoms(usedPairs);
+//
+//        return contraryPairs;
+//    }
 
 
     public boolean isContains(Disjunct disjunct) {

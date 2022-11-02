@@ -11,7 +11,6 @@ public class Unification {
         }
 
         for (int i = 0; i < firstAtom.getArgs().size(); i++) {
-            System.out.println(i);
             ParamType firstAtomParam = firstAtom.getArgs().get(i);
             ParamType secondAtomParam = secondAtom.getArgs().get(i);
 

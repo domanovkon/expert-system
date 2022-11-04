@@ -39,10 +39,6 @@ public class Variable extends ParamType {
         String result = this.links.stream()
                 .map(n -> String.valueOf(n.getName()))
                 .collect(Collectors.joining());
-        return "Variable{" +
-                "name='" + name + '\'' +
-                ", constant=" + constant +
-                ", links: " + result +
-                '}';
+        return name;
     }
 }

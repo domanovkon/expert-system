@@ -57,8 +57,23 @@ public class Main {
         Stack<Edge> openEdges = new Stack<>();
 
         Search search = new Search(closedNodes, closedEdges, openEdges, edgeList, target);
+        search.printClosedNodes();
+        System.out.println("\n\nЦель:");
+        System.out.print("" + target.getName() + " ( ");
+        for (ParamType pt : target.getArgs()) {
+            if (pt.isConstant()) {
+                Constant c = (Constant) pt;
+                System.out.print(c.getValue());
+            } else {
+                Variable v = (Variable) pt;
+                System.out.print(v.getConstant().getValue());
+            }
+            System.out.print(" ");
+        }
+        System.out.print(")");
+        System.out.println();
         search.search();
-
-
+        System.out.println();
+        search.printClosedNodes();
     }
 }
